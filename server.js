@@ -34,7 +34,7 @@ app.set("view engine", "handlebars");
 app.use('/', index);
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/nyt");
+mongoose.connect(" mongodb://heroku_1ddjk6k0:s8r8a5fk2o026qtpd6q5k4j7fh@ds127564.mlab.com:27564/heroku_1ddjk6k0");
 let db = mongoose.connection;
 
 // Show any mongoose errors
