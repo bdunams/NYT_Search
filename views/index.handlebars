@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="jumbotron text-center">
+    <h1>Mongo Scraper!</h1>
+    <p>New York Times Edition</p>
+    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+  </div>
+</div>
+
+
+{{#each scrapedArticles}}
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      
+      <form class="form-inline" method="post" action="/save-article">
+        <h3 class="form-group panel-title">{{this.title}}</h3>
+        <input type="hidden" name="title" value="{{this.title}}">
+        <input type="hidden" name="summary" value="{{this.summary}}">
+        <input type="hidden" name="author" value="{{this.author}}">
+        <button class="btn btn-success float-right" type="submit">Save Article</button>
+      </form>
+    </div>
+    <div class="panel-body">
+      <p>{{this.summary}}</p>
+      <p>{{this.author}}</p>
+    </div>
+  </div>
+  <p></p>
+  
+{{/each}}
+

@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="jumbotron text-center">
+    <h1>Saved Articles</h1>
+    <p>Check out your saved articles</p>
+    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+  </div>
+</div>
+
+{{#if savedArticles}}
+  {{#each savedArticles}}
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title text">{{this.title}}</h3>
+
+        <button class="btn btn-success text-right" data-toggle="modal" data-target="#{{this._id}}">Article Notes</button>
+  <!--   DELETE   -->
+        <form class=" text-right" method="post" action="/articles/delete">
+          <input type="hidden" name="id" value="{{this._id}}">
+          <input type="hidden" name="TEST" value="TEST ITEM">
+          <button class="btn btn-danger" type="submit">Delete Article</button>
+        </form>
+      </div>
+      <div class="panel-body">
+        <p>{{this.summary}}</p>
+        <p>{{this.author}}</p>
+      </div>
+    </div>
+    <p></p>
+
+  <div class="modal fade" id="{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">Notes For Article: {{this._id}}</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{#if this.note}}
+            <ul class="list-group">
+              {{#each this.note}}
+
+                <li class="list-group-item">
+                  {{this.body}}
+                  <form class="text-right" method="post" action="/delete-note">
+                    <input type="hidden" name="noteId" value="{{this._id}}">
+                    <button class="btn btn-danger" type="submit">X</button>
+                  </form>
+              </li>
+
+              {{/each}}
+              <br>
+              <hr>
+          {{else}}
+
+              <li class="list-group-item">There aren't any notes for this article! Add one!</li>
+              <br>
+              <br>
+            </ul>
+          {{/if}}
+          <p class="text-right">Add a note!</p>
+          <form class="text-right" method="post" action="/save-note">
+            <input type="hidden" name="articleId" value="{{this._id}}">
+            <input class="well" type="text" name="body">
+            <button class="btn btn-success" type="submit">Save Article</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{/each}}
+
+{{else}}
+  <h2>No saved articles, go scrape some!</h2>
+{{/if}}
